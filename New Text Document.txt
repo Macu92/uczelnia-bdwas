@@ -1,0 +1,56 @@
+ustawienie wypisywania
+
+SET SERVEROUTPUT ON
+
+zad1/2
+DECLARE
+zmLiczb number(5);
+zmText varchar(50);
+zmLiczbNotNull number(5) not null := 11;
+zmLiczbConst CONSTANT number(5) := 10;
+zmLiczbDefault number default 5;
+zmLiczbColumnType SALARY_GRADES.LOW_SALARY%TYPE;
+BEGIN
+zmLiczb:=11;
+IF (zmLiczb IS NULL) THEN
+  dbms_output.put_line('zmLiczb jest NUll');
+ELSIF (zmLiczb<0) THEN
+  dbms_output.put_line('zmLiczb ujemna');
+ELSIF (zmLiczb>=0) THEN
+  dbms_output.put_line('zmLiczb dodatania');
+END IF;
+END;
+///////////////////////////
+zad 3
+DECLARE
+BEGIN
+FOR i IN 4..9 LOOP
+dbms_output.put_line(i);
+END loop;
+END;
+//zad 5
+DECLARE
+   c_id PRODUCT.PROD_ID%type;
+   c_name PRODUCT.PROD_NAME%type;
+   c_price PRODUCT.PROD_PRICE%type;
+   CURSOR c_producs is
+      SELECT PROD_ID, PROD_NAME, PROD_PRICE FROM PRODUCT;
+BEGIN
+   OPEN c_producs;
+   LOOP
+      FETCH c_producs into c_id, c_name, c_price;
+      EXIT WHEN c_producs%notfound;
+      dbms_output.put_line(c_id || ' ' || c_name || ' ' || c_price);
+   END LOOP;
+   CLOSE c_producs;
+END;
+//zad 6
+DECLARE
+   CURSOR c_producs is
+      SELECT PROD_ID, PROD_NAME, PROD_PRICE FROM PRODUCT;
+BEGIN
+   FOR prod IN c_producs LOOP
+      dbms_output.put_line(prod.PROD_ID || ' ' ||prod.PROD_NAME || ' ' || prod.PROD_PRICE);
+   END LOOP;
+END;
+//zad 7 
